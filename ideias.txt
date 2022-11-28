@@ -1,0 +1,9 @@
+---Bloco de anotações de tarefas----
+A fazer:
+    - Criação do sistema de download de vídeos
+    - Criar lista armazenando os vídeos já baixados (talvez usar SQL para não haver reset em toda instância de reinício)
+    - Criar menu se seleção
+        * Baixar vídeo
+        * Listar vídeo já baixados
+            - título
+            - link

@@ -6,6 +6,7 @@ import moviepy.editor as mp
 
 class Video():
     def __init__(self, link):
+        self.link=link
         self.objVideo = YouTube(link)
 
 

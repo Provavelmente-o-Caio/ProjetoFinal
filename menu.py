@@ -14,7 +14,7 @@ while True:
         listaVideos.append(Video(link))
         
     elif seletor==2:
-        listaVideos[0].downloadVideo()
+        listaVideos[0].downloadAudio()
     
     elif seletor==3:
         break

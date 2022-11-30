@@ -5,9 +5,9 @@ import os
 class Video():
     def __init__(self, link):
         self.link=link
-        self.objAudio = YouTube(link)
+        self.objVideo = YouTube(link)
 
 
-    def downloadVideo(self):
-        videodecria = self.objAudio.streams.filter(only_audio = True).first()
-        videodecria.download()
+    def downloadAudio(self):
+        audiodecria = self.objVideo.streams.filter(only_audio = True).filter(audio_codec= 'mp3').first()
+        out_file = audiodecria.download("download/audio")

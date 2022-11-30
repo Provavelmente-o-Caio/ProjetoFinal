@@ -12,5 +12,8 @@ class Video():
         video = self.objYT.streams.get_highest_resolution()
         video.download("download/video")
 
+    def downloadAudio(self):
+        pass
+
     def listaVideo(self):
         titulo = self.objYT.title()

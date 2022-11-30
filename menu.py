@@ -1,5 +1,4 @@
 from videos import Video
-
 listaVideos=[]
 while True:
     print('''1 - cadastrar vídeo

@@ -9,5 +9,5 @@ class Video():
 
 
     def downloadVideo(self):
-        videodecria = self.streams.filter(only_audio = True).first()
+        videodecria = self.objAudio.streams.filter(only_audio = True).first()
         videodecria.download()

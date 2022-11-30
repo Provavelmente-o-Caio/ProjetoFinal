@@ -3,7 +3,7 @@ A fazer:
     - Criação do sistema de download de vídeos
     - Criar lista armazenando os vídeos já baixados (talvez usar SQL para não haver reset em toda instância de reinício)
     - Criar menu se seleção
-        * Baixar vídeo
+        * Baixar vídeo --ok
         * Listar vídeo já baixados
             - título
             - link

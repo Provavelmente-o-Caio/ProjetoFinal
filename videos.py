@@ -1,5 +1,6 @@
 #pyp install pytube
 from pytube import YouTube
+import os
 
 class Video():
     def __init__(self, link):
@@ -8,5 +9,8 @@ class Video():
 
 
     def downloadVideo(self):
-        videodecria = self.objVideo.streams.get_highest_resolution()
-        videodecria.download()
+        video = self.objVideo.streams.get_highest_resolution()
+        video.download("download")
+
+    def listaVideo(self):
+        titulo = self.objVideo.title()

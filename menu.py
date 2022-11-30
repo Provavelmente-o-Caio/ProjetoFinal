@@ -12,8 +12,10 @@ while True:
 
         if seletor==1:
             link = input('Digite o link do vídeo que deseja cadastrar: ')
+            listaVideos.append(Video(link))
             
         elif seletor==2:
             pass
+        
         elif seletor==3:
             break

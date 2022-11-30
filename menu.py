@@ -14,7 +14,7 @@ while True:
     if seletor==1:
         link = input('Digite o link do vídeo que deseja cadastrar: ')
         listaVideos.append(Video(link))
-        listaVideos[0].downloadVideo()
+        seletorVideo = int
     
     elif seletor==2:
         break

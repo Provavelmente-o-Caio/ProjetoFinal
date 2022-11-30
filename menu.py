@@ -1,20 +1,18 @@
 from videos import Video
+import PySimpleGUI as sg
 listaVideos=[]
-while True:
-    print('''1 - cadastrar vídeo
-2 - baixar vídeo
-3 - sair''')
-    while True:
-        seletor = int(input('Escolha a opção que deseja: '))
-        if seletor>=1 and seletor<=3:
-            break
 
-    if seletor==1:
-        link = input('Digite o link do vídeo que deseja cadastrar: ')
-        listaVideos.append(Video(link))
-        
-    elif seletor==2:
-        listaVideos[0].downloadAudio()
+layout = [[sg.Text('Url de origem:'), sg.InputText()], #primeira linha
+        [sg.Button('Download'), sg.Button('Cancel')]] #segunda linha
+
+janela = sg.Window("DOWNLOADER DE CRIA", layout)
+
     
-    elif seletor==3:
+while True:
+    event, values = janela.read()
+    if event == sg.WIN_CLOSED or event == 'Cancel': # se usuário fechar a janela ou pressionar cancel
         break
+    elif event == 'Download': 
+        Video.downloadAudio(values[0])
+        sg.PopupOK('Download efetuado com sucesso!!')
+janela.close()

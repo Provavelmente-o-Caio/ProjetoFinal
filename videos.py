@@ -14,6 +14,3 @@ class Video():
 
     def downloadAudio(self):
         pass
-
-    def listaVideo(self):
-        titulo = self.objYT.title()

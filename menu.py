@@ -11,7 +11,8 @@ while True:
             break
 
         if seletor==1:
-            pass
+            link = input('Digite o link do vídeo que deseja cadastrar: ')
+            
         elif seletor==2:
             pass
         elif seletor==3:

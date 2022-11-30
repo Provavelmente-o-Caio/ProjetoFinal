@@ -7,7 +7,3 @@ A fazer:
         * Listar vídeo já baixados
             - título
             - link
-
-
-
-texto de exemplo pro git

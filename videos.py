@@ -9,10 +9,12 @@ class Video():
         self.link=link
         self.objVideo = YouTube(link)
 
-
-    def downloadAudio(self):
-        self.objVideo.streams.filter(only_audio = True).first().download('download/Audio')
-        path = "C:/Users/Nicolas Constante G/Documents/ProjetoFinal/download/audio"
+    def downloadVideo(self, path):
+        self.objVideo.streams.get_highest_resolution().download(path)
+        
+        
+    def downloadAudio(self, path):
+        self.objVideo.streams.filter(only_audio = True).first().download(path)
         for file in os.listdir(path):                  #For para percorrer dentro da pasta passada anteriormente
             if re.search('mp4', file):                 #If verificando se o arquivo e .MP4                    
                 mp4_path = os.path.join (path, file)  #Cria uma variavel para armazenar o arquivo .MP4

@@ -7,7 +7,7 @@ A fazer:
         * Listar vídeo já baixados
             - título
             - link
-
+        * opção de escolhas de formato do arquivo
 
 
 texto de exemplo pro git

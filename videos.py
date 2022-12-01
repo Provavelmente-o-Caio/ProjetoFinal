@@ -2,6 +2,7 @@
 from pytube import YouTube
 import os
 import re
+#pyp install moviepy
 import moviepy.editor as mp
 
 class Video():

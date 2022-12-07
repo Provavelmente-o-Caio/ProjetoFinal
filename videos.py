@@ -1,5 +1,5 @@
 #pyp install pytube
-from pytube import YouTube
+from pytube import YouTube, Playlist
 import os
 import re
 #pyp install moviepy
@@ -9,7 +9,7 @@ class Video():
     def __init__(self, link):
         self.link=link
         self.objYT = YouTube(link)
-
+        
     def downloadVideo(self, path):
         self.objYT.streams.get_highest_resolution().download(path, filename_prefix="video_")
         
@@ -23,3 +23,16 @@ class Video():
                 new_file = mp.AudioFileClip(mp4_path)  #Cria o arquivo de áudio (.MP3)
                 new_file.write_audiofile(mp3_path)     #Renomeia o arquivo, setando o nome criado anteriormente
                 os.remove(mp4_path)                    #Remove o arquivo .MP4; desetivar linha permite salvar o audio e video do mesmo video ao mesmo tempo
+
+
+class DEPOISEUPENSO():
+    def __init__(self,link):
+        self.link = link
+        self.objYTPL = Playlist(link)
+    
+    def downloadPlaylist(self, path):
+        for url in self.objYTPL:
+            Video(url).downloadVideo(path)
+
+link = 'https://youtube.com/playlist?list=PL8rzbbiOVga3DXDBO0FdocjPp3r65sgKn'
+DEPOISEUPENSO(link).downloadPlaylist('')

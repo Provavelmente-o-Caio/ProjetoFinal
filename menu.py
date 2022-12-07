@@ -14,6 +14,7 @@ while True:
     elif event == 'Download Video':
         Video(values[0]).downloadVideo(values[1])
         sg.PopupOK('Download completed successfully!!')
+        sg.popup_menu()
     elif event == 'Download Audio': 
         Video(values[0]).downloadAudio(values[1])
         sg.PopupOK('Download completed successfully!!')

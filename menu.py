@@ -1,10 +1,15 @@
 from videos import Video
 import PySimpleGUI as sg
 
-layout = [[sg.Text('Url de origem:'), sg.InputText()], #primeira linha
-        [sg.Text('Pasta de destino:'), sg.InputText(), sg.FolderBrowse()], #segunda linha
-        [sg.Button('Download Video'), sg.Button('Download Audio'), sg.Button('Cancel')]] #terceira linha
-janela = sg.Window("MEDIA DOWNLOADER", layout)
+
+opt = ['mp3', 'mp4']
+layout = [
+        [sg.Text('Url de origem:', size=(15,1)), sg.InputText(size=(50,1))], #primeira linha
+        [sg.Text('Pasta de destino:', size=(15,1)), sg.InputText(size=(40,1)), sg.FolderBrowse(size=(5,1))], #segunda linha
+        [sg.Text('Perfil de Saída:', size=(15,1)), sg.Text('Nome do arquivo', size=(40,1)),sg.DD(opt, size=(5,1))], #terceira linha
+        [sg.Button('Cancel', size=(5,1))]
+]
+janela = sg.Window("C & C DOWNLOADER", layout)
 
     
 while True:

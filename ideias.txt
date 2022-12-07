@@ -7,3 +7,7 @@ A fazer:
         * Listar vídeo já baixados
             - título
             - link
+
+---Coisas ainda a fazer---
+    - exemplo/uso de Herança;
+    - exemplo/uso de Polimorfismo;

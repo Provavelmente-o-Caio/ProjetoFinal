@@ -35,7 +35,7 @@ class PlaylistDownload(PlaylistVideo):
         self.path = path
         
     def downloadAllVideos(self):
-        for a, url in enumerate(self.objYTPL):
+        for url in self.objYTPL:
             YouTube(url).streams.get_highest_resolution().download(self.path, filename_prefix="video_")
     
     

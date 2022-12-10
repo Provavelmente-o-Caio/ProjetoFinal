@@ -1,2 +1,2 @@
-# ProjetoFinal
-Projeto final de Caio Ferreira Cardoso e Nicolas Constante Guedert para a matéria de Programação orientada a objetos 22/2 da Universidade Federal de Santa Catarina.
+# ProjetoFinal - MEDIA DOWNLOADER
+Projeto final referente a matéria de Programação Orientada à Objetos I ofertada no Curso de Ciências da Computação (Fase I) na Universidade Federal de Santa Catarina (UFSC), executado por Caio Ferreira Cardoso e Nicolas Constante Guedert visando a criação de uma ferramenta simples para download de vídeos/playlist do Youtube, com a possibilidade de convertê-los para áudio MP3.

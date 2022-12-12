@@ -1,10 +1,6 @@
-#pyp install pytube
+#pip install pytube and moviepy
 from pytube import YouTube, Playlist
-import os
-import re
-#pyp install moviepy
-import moviepy.editor as mp
-
+import os, re, moviepy.editor as mp, PySimpleGUI as sg
 class IndividualVideo():
     def __init__(self, link):
         self.link=link
@@ -53,6 +49,22 @@ def conversor(path):
                 new_file.write_audiofile(mp3_path)     #Renomeia o arquivo, setando o nome criado anteriormente
                 os.remove(mp4_path)                    #Remove o arquivo .MP4; desetivar linha permite salvar o audio e video do mesmo video ao mesmo tempo
 
+def tratamentolink(link):
+    status = False
+    if "https://www.youtube.com/" not in link:
+        sg.PopupOK("Invalid link! Enter again.")
+    else:
+        status = True
+        return status
+    
+    
+def tratamentopath(path):
+    status = False
+    if path == "" or "/" not in path:
+        sg.PopupOK("Invalid Path! Enter again.")
+    else:
+        status = True
+        return status
 
 # ÁREA TESTES #
 

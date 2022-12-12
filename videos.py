@@ -18,11 +18,11 @@ class IndividualDownload(IndividualVideo):
         self.path = path
     
     def downloadVideo(self):
-        self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_")
+        self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)
         
     
     def downloadAudio(self):
-        self.objYT.streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_")
+        self.objYT.streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
     
     
 class PlaylistDownload(PlaylistVideo):
@@ -32,12 +32,12 @@ class PlaylistDownload(PlaylistVideo):
         
     def downloadAllVideos(self):
         for url in self.objYTPL:
-            YouTube(url).streams.get_highest_resolution().download(self.path, filename_prefix="video_")
+            YouTube(url).streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)
     
     
     def downloadAllTracks(self):
         for url in self.objYTPL:
-            YouTube(url).streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_")
+            YouTube(url).streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
         
         
 def conversor(path):
@@ -59,11 +59,10 @@ def tratamentolink(link):
     
     
 def tratamentopath(path):
-    status = False
-    if path == "" or "/" not in path:
+    status = os.path.lexists(path)
+    if status == False:
         sg.PopupOK("Invalid Path! Enter again.")
     else:
-        status = True
         return status
 
 # ÁREA TESTES #

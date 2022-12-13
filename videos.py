@@ -39,30 +39,30 @@ class PlaylistDownload(PlaylistVideo):
             YouTube(url).streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
         
         
-    def conversor(path):
-        for file in os.listdir(path):                      #For para percorrer dentro da pasta passada anteriormente
-                if re.search('mp4', file) and "audio_"in file:                 #If verificando se o arquivo e .MP4                    
-                    mp4_path = os.path.join (path, file)   #Cria uma variavel para armazenar o arquivo .MP4
-                    mp3_path = os.path.join (path, os.path.splitext(file)[0] + ".mp3") # Variavel que cria o nome do arquivo e adiciona .MP3 ao final
-                    new_file = mp.AudioFileClip(mp4_path)  #Cria o arquivo de acordo com o tipo
-                    new_file.write_audiofile(mp3_path)     #Renomeia o arquivo, setando o nome criado anteriormente
-                    os.remove(mp4_path)                    #Remove o arquivo .MP4; desetivar linha permite salvar o audio e video do mesmo video ao mesmo tempo
+def conversor(path):
+    for file in os.listdir(path):                      #For para percorrer dentro da pasta passada anteriormente
+            if re.search('mp4', file) and "audio_"in file:                 #If verificando se o arquivo e .MP4                    
+                mp4_path = os.path.join (path, file)   #Cria uma variavel para armazenar o arquivo .MP4
+                mp3_path = os.path.join (path, os.path.splitext(file)[0] + ".mp3") # Variavel que cria o nome do arquivo e adiciona .MP3 ao final
+                new_file = mp.AudioFileClip(mp4_path)  #Cria o arquivo de acordo com o tipo
+                new_file.write_audiofile(mp3_path)     #Renomeia o arquivo, setando o nome criado anteriormente
+                os.remove(mp4_path)                    #Remove o arquivo .MP4; desetivar linha permite salvar o audio e video do mesmo video ao mesmo tempo
 
-    def tratamentolink(link):
-        status = False
-        if "https://www.youtube.com/" not in link:
-            sg.PopupOK("Invalid link! Enter again.")
-        else:
-            status = True
-            return status
-        
-        
-    def tratamentopath(path):
-        status = os.path.lexists(path)
-        if status == False:
-            sg.PopupOK("Invalid Path! Enter again.")
-        else:
-            return status
+def tratamentolink(link):
+    status = False
+    if "https://www.youtube.com/" not in link:
+        sg.PopupOK("Invalid link! Enter again.")
+    else:
+        status = True
+        return status
+    
+    
+def tratamentopath(path):
+    status = os.path.lexists(path)
+    if status == False:
+        sg.PopupOK("Invalid Path! Enter again.")
+    else:
+        return status
 
 # ÁREA TESTES #
 

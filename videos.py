@@ -5,6 +5,8 @@ class IndividualVideo():
     def __init__(self, link):
         self.link=link
         self.objYT = YouTube(link)
+
+
 class PlaylistVideo():
     def __init__(self,link):
         self.link = link
@@ -17,26 +19,29 @@ class IndividualDownload(IndividualVideo):
         self.path = path
     
     def downloadVideo(self):
-        self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)
-        
+        self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)    
     
     def downloadAudio(self):
         self.objYT.streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
-    
-    
-class PlaylistDownload(PlaylistVideo):
+        conversor(self.path)
+
+
+class PlaylistDownload(PlaylistVideo, IndividualDownload):
     def __init__(self, link, path):
         super().__init__(link)
-        self.path = path
+        self.name = self.objYTPL.title
+        self.path = path+'/'+self.name
+
+    def downloadAudio(self):
+        self.objYT.streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
         
     def downloadAllVideos(self):
         for url in self.objYTPL:
             IndividualDownload(url, self.path).downloadVideo()
     
-    
     def downloadAllTracks(self):
         for url in self.objYTPL:
-            IndividualDownload(url, self.path).downloadAudio()
+            self.downloadAudio()
         
         
 def conversor(path):

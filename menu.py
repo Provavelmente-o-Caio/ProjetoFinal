@@ -41,11 +41,9 @@ while True:
             pass
             if "playlist" in values[0]: 
                 PlaylistDownload(values[0], values[1]).downloadAllTracks()
-                conversor(values[1])
                 sg.PopupOK('Download completed successfully!!')
             else:
                 IndividualDownload(values[0], values[1]).downloadAudio()
-                conversor(values[1])
                 sg.PopupOK('Download completed successfully!!')
     #---------------------#
 janela.close()

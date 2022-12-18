@@ -58,19 +58,42 @@ def conversor(path):
                 new_file = mp.AudioFileClip(mp4_path)  #Cria o arquivo de acordo com o tipo
                 new_file.write_audiofile(mp3_path)     #Renomeia o arquivo, setando o nome criado anteriormente
                 os.remove(mp4_path)                    #Remove o arquivo .MP4; desetivar linha permite salvar o audio e video do mesmo video ao mesmo tempo
+                
+                
+class Validators():
+    def __init__(self,link,path):
+        self.link = link
+        self.path = path
 
 
-def tratamentolink(link):
-    try:
-        YouTube(link)
-    except:
-        sg.PopupNoTitlebar("Link inválido! Insira novamente!!")
-    else:
-        return True
-    
-    
-def tratamentopath(path):
-    status = os.path.lexists(path)
-    if status == False:
-        sg.PopupNoTitlebar("Caminho inválido! Insira novamente!!")
-    return status
+    def validator_individuallink(self):
+        if "https://www.youtube.com/watch" in self.link:
+            status = True
+        else:
+            status = False
+        return status
+        
+        
+    def validator_playlistlink(self):
+        if "playlist" in self.link:
+            status = True
+        else:
+            status = False
+        return status
+
+
+    def validator_path(self):
+        status = os.path.lexists(self.path)
+        if status == False:
+            sg.PopupNoTitlebar("Caminho inválido! Insira novamente!!")
+        return status
+
+
+
+link = "h"
+linkp = "https://www.yout"
+path = "/home/nicolascguedert/Documentos/ProjetoFinal/Teste"
+
+
+testelink = Validators(linkp,path).validator_playlistlink
+print(testelink)

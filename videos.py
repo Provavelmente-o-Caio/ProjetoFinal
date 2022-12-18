@@ -18,10 +18,8 @@ class IndividualDownload(IndividualVideo):
         super().__init__(link)
         self.path = path
     
-    
     def downloadVideo(self):
         self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)    
-    
     
     def downloadAudio(self):
         self.objYT.streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
@@ -32,17 +30,14 @@ class PlaylistDownload(PlaylistVideo, IndividualDownload):
     def __init__(self, link, path):
         super().__init__(link)
         self.name = self.objYTPL.title
-        self.path = path + '/' + self.name
-        
-        
+        self.path = path+'/'+self.name
+
     def downloadAudio(self, url):
         YouTube(url).streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True) #removi o conversos para quando for chamar o download audio não chamar a função muitas vezes desnecessariamente
-        
         
     def downloadAllVideos(self):
         for url in self.objYTPL:
             IndividualDownload(url, self.path).downloadVideo()
-    
     
     def downloadAllTracks(self):
         for url in self.objYTPL:
@@ -66,20 +61,11 @@ def tratamentolink(link):
     else:
         status = True
         return status
-
-
-    def validator_path(self):
-        status = os.path.lexists(self.path)
-        if status == False:
-            sg.PopupNoTitlebar("Caminho inválido! Insira novamente!!")
+    
+    
+def tratamentopath(path):
+    status = os.path.lexists(path)
+    if status == False:
+        sg.PopupOK("Invalid Path! Enter again.")
+    else:
         return status
-
-
-
-link = "h"
-linkp = "https://www.yout"
-path = "/home/nicolascguedert/Documentos/ProjetoFinal/Teste"
-
-
-testelink = Validators(linkp,path).validator_playlistlink
-print(testelink)

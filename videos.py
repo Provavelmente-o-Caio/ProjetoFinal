@@ -5,6 +5,8 @@ class IndividualVideo():
     def __init__(self, link):
         self.link=link
         self.objYT = YouTube(link)
+
+
 class PlaylistVideo():
     def __init__(self,link):
         self.link = link
@@ -17,26 +19,30 @@ class IndividualDownload(IndividualVideo):
         self.path = path
     
     def downloadVideo(self):
-        self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)
-        
+        self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)    
     
     def downloadAudio(self):
         self.objYT.streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
-    
-    
-class PlaylistDownload(PlaylistVideo):
+        conversor(self.path)
+
+
+class PlaylistDownload(PlaylistVideo, IndividualDownload):
     def __init__(self, link, path):
         super().__init__(link)
-        self.path = path
+        self.name = self.objYTPL.title
+        self.path = path+'/'+self.name
+
+    def downloadAudio(self, url):
+        YouTube(url).streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True) #removi o conversos para quando for chamar o download audio não chamar a função muitas vezes desnecessariamente
         
     def downloadAllVideos(self):
         for url in self.objYTPL:
-            YouTube(url).streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)
-    
+            IndividualDownload(url, self.path).downloadVideo()
     
     def downloadAllTracks(self):
         for url in self.objYTPL:
-            YouTube(url).streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
+            self.downloadAudio(url)
+        conversor(self.path)
         
         
 def conversor(path):
@@ -63,16 +69,3 @@ def tratamentopath(path):
         sg.PopupOK("Invalid Path! Enter again.")
     else:
         return status
-
-# ÁREA TESTES #
-
-link = "https://www.youtube.com/watch?v=GJ0mO8P37Eg&list=PL8rzbbiOVga3DXDBO0FdocjPp3r65sgKn&index=1"
-linkp = "https://www.youtube.com/playlist?list=PL8rzbbiOVga3DXDBO0FdocjPp3r65sgKn"
-path = "Documentos/ProjetoFinal/"
-
-#IndividualDownload(link,path).downloadVideo()
-#IndividualDownload(link,path).downloadAudio()
-#conversor(path)
-#PlaylistDownload(linkp,path).downloadAllVideos()
-#PlaylistDownload(linkp,path).downloadAllTracks()
-#conversor(path)

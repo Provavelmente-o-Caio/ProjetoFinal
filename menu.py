@@ -26,7 +26,6 @@ while True:
     # TRATAMENTO DE VIDEO #
     if event == 'Download Video':
         if elink == True and epath == True:
-            pass
             if "playlist" in values[0]: 
                 PlaylistDownload(values[0], values[1]).downloadAllVideos()
                 sg.PopupOK('Download completed successfully!!')
@@ -38,21 +37,11 @@ while True:
     # TRATAMENTO DE AUDIO #
     elif event == 'Download Audio':
         if elink == True and epath == True:
-            pass
             if "playlist" in values[0]: 
                 PlaylistDownload(values[0], values[1]).downloadAllTracks()
-                conversor(values[1])
                 sg.PopupOK('Download completed successfully!!')
             else:
                 IndividualDownload(values[0], values[1]).downloadAudio()
-                conversor(values[1])
                 sg.PopupOK('Download completed successfully!!')
     #---------------------#
 janela.close()
-
-'''''
-#dados para teste
-link = "https://www.youtube.com/watch?v=GJ0mO8P37Eg&list=PL8rzbbiOVga3DXDBO0FdocjPp3r65sgKn&index=1"
-linkp = "https://www.youtube.com/playlist?list=PL8rzbbiOVga3DXDBO0FdocjPp3r65sgKn"
-path = "Documentos/ProjetoFinal/"
-'''''

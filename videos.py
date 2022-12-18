@@ -55,20 +55,12 @@ def conversor(path):
                 os.remove(mp4_path)                    #Remove o arquivo .MP4; desetivar linha permite salvar o audio e video do mesmo video ao mesmo tempo
 
 def tratamentolink(link):
-    if "playlist" in link:
-        try:
-            Playlist(link)
-        except:
-            sg.PopupNoTitlebar("Link inválido! Insira novamente!!")
-        else:
-            return True
+    status = False
+    if "https://www.youtube.com/" not in link:
+        sg.PopupOK("Invalid Path! Enter again.")
     else:
-        try:
-            YouTube(link)
-        except:
-            sg.PopupNoTitlebar("Link inválido! Insira novamente!!")
-        else:
-            return True
+        status = True
+        return status
     
     
 def tratamentopath(path):

@@ -19,7 +19,7 @@ class IndividualDownload(IndividualVideo):
         self.path = path
     
     def downloadVideo(self):
-        self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)    
+        self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)
     
     def downloadAudio(self):
         self.objYT.streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
@@ -43,6 +43,13 @@ class PlaylistDownload(PlaylistVideo, IndividualDownload):
         for url in self.objYTPL.video_urls:
             self.downloadAudio(url)
         conversor(self.path)
+
+    def setJanela(self):
+        layout = [[sg.Text(self.objYTPL.title)]]
+        for video in self.objYTPL.videos:
+            layout.append([sg.Checkbox(video.title, key=video.video_id)],)
+        layout.append([sg.Button('Voltar'), sg.Button('Ok')])
+        return sg.Window("Seleção de vídeos", layout=layout, finalize=True)
         
         
 def conversor(path):

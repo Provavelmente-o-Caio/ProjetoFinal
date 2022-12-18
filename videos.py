@@ -58,27 +58,13 @@ def conversor(path):
                 new_file = mp.AudioFileClip(mp4_path)  #Cria o arquivo de acordo com o tipo
                 new_file.write_audiofile(mp3_path)     #Renomeia o arquivo, setando o nome criado anteriormente
                 os.remove(mp4_path)                    #Remove o arquivo .MP4; desetivar linha permite salvar o audio e video do mesmo video ao mesmo tempo
-                
-                
-class Validators():
-    def __init__(self,link,path):
-        self.link = link
-        self.path = path
 
-
-    def validator_individuallink(self):
-        if "https://www.youtube.com/watch" in self.link:
-            status = True
-        else:
-            status = False
-        return status
-        
-        
-    def validator_playlistlink(self):
-        if "playlist" in self.link:
-            status = True
-        else:
-            status = False
+def tratamentolink(link):
+    status = False
+    if "https://www.youtube.com/" not in link:
+        sg.PopupOK("Invalid Path! Enter again.")
+    else:
+        status = True
         return status
 
 

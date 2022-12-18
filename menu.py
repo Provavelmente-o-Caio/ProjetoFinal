@@ -45,10 +45,3 @@ while True:
                 sg.PopupOK('Download completed successfully!!')
     #---------------------#
 janela.close()
-
-'''''
-#dados para teste
-link = "https://www.youtube.com/watch?v=GJ0mO8P37Eg&list=PL8rzbbiOVga3DXDBO0FdocjPp3r65sgKn&index=1"
-linkp = "https://www.youtube.com/playlist?list=PL8rzbbiOVga3DXDBO0FdocjPp3r65sgKn"
-path = "Documentos/ProjetoFinal/"
-'''''

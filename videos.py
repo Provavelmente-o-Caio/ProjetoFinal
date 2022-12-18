@@ -32,8 +32,8 @@ class PlaylistDownload(PlaylistVideo, IndividualDownload):
         self.name = self.objYTPL.title
         self.path = path+'/'+self.name
 
-    def downloadAudio(self):
-        self.objYT.streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
+    def downloadAudio(self, url):
+        YouTube(url).streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True) #removi o conversos para quando for chamar o download audio não chamar a função muitas vezes desnecessariamente
         
     def downloadAllVideos(self):
         for url in self.objYTPL:
@@ -41,7 +41,8 @@ class PlaylistDownload(PlaylistVideo, IndividualDownload):
     
     def downloadAllTracks(self):
         for url in self.objYTPL:
-            self.downloadAudio(url, self.path)
+            self.downloadAudio(url)
+        conversor(self.path)
         
         
 def conversor(path):

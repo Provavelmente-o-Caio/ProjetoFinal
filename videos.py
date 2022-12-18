@@ -57,7 +57,7 @@ def conversor(path):
 def tratamentolink(link):
     status = False
     if "https://www.youtube.com/" not in link:
-        sg.PopupOK("Invalid Path! Enter again.")
+        sg.PopupOK("Invalid Link! Enter again.")
     else:
         status = True
         return status

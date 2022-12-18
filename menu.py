@@ -23,9 +23,14 @@ while True:
         elink = tratamentolink(values[0])
         epath = tratamentopath(values[1])
 
+        audio=False
+        video=False
+
         if event == 'Download Video':
             if elink == True and epath == True:
                 if "playlist" in values[0]:
+                    link=values[0]
+                    path=values[1]
                     janela2 = PlaylistDownload(values[0], values[1]).setJanela()
                     janela.hide()
                     video=True
@@ -38,6 +43,8 @@ while True:
         if event == 'Download Audio':
             if elink == True and epath == True:
                 if "playlist" in values[0]:
+                    link=values[0]
+                    path=values[1]
                     janela2 = PlaylistDownload(values[0], values[1]).setJanela()
                     janela.hide()
                     audio=True
@@ -47,15 +54,27 @@ while True:
     #---------------------#
 
     # JANELA DE SELEÇÃO #
-    if window==janela2 and event=='Voltar':
-        janela2.hide()
-        janela2=None
-        audio=False
-        video=False
-        janela.un_hide()
+    if window==janela2:
+        if event=='Voltar':
+            janela2.hide()
+            janela2=None
+            audio=False
+            video=False
+            janela.un_hide()
 
-    if window==janela2 and event=='OK':
-        for valor in values:
-            if valor:
-                pass
+        if event=='Ok':
+            selecionados=[]
+            for chave, valor in values.items():
+                if valor==True:
+                    selecionados.append("https://www.youtube.com/watch?v="+chave)
+            print(selecionados)
+            if audio:
+                PlaylistDownload(link, path).downloadAllTracks(selecionados)
+            elif video:
+                PlaylistDownload(link, path).downloadAllVideos(selecionados)
+            janela2.hide()
+            janela2=None
+            audio=False
+            video=False
+            janela.un_hide()
 janela.close()

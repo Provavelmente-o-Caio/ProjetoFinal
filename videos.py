@@ -35,21 +35,26 @@ class PlaylistDownload(PlaylistVideo, IndividualDownload):
     def downloadAudio(self, url):
         YouTube(url).streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True) #removi o conversos para quando for chamar o download audio não chamar a função muitas vezes desnecessariamente
         
-    def downloadAllVideos(self):
+    def downloadAllVideos(self, selecionados):
+        self.selecionados = selecionados
         for url in self.objYTPL.video_urls:
-            IndividualDownload(url, self.path).downloadVideo()
+            if url in self.selecionados:
+                IndividualDownload(url, self.path).downloadVideo()
     
-    def downloadAllTracks(self):
+    def downloadAllTracks(self, selecionados):
+        self.selecionados = selecionados
         for url in self.objYTPL.video_urls:
-            self.downloadAudio(url)
+            if url in self.selecionados:
+                self.downloadAudio(url)
         conversor(self.path)
 
     def setJanela(self):
         layout = [[sg.Text(self.objYTPL.title)]]
         for video in self.objYTPL.videos:
-            layout.append([sg.Checkbox(video.title, key=video.video_id)],)
+            layout.append([sg.Checkbox(video.title, key=video.video_id, default=True)],)
         layout.append([sg.Button('Voltar'), sg.Button('Ok')])
         return sg.Window("Seleção de vídeos", layout=layout, finalize=True)
+
         
         
 def conversor(path):

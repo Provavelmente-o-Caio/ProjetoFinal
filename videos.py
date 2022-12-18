@@ -19,7 +19,7 @@ class IndividualDownload(IndividualVideo):
         self.path = path
     
     def downloadVideo(self):
-        self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)    
+        self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)
     
     def downloadAudio(self):
         self.objYT.streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
@@ -35,14 +35,26 @@ class PlaylistDownload(PlaylistVideo, IndividualDownload):
     def downloadAudio(self, url):
         YouTube(url).streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True) #removi o conversos para quando for chamar o download audio não chamar a função muitas vezes desnecessariamente
         
-    def downloadAllVideos(self):
-        for url in self.objYTPL:
-            IndividualDownload(url, self.path).downloadVideo()
+    def downloadAllVideos(self, selecionados):
+        self.selecionados = selecionados
+        for url in self.objYTPL.video_urls:
+            if url in self.selecionados:
+                IndividualDownload(url, self.path).downloadVideo()
     
-    def downloadAllTracks(self):
-        for url in self.objYTPL:
-            self.downloadAudio(url)
+    def downloadAllTracks(self, selecionados):
+        self.selecionados = selecionados
+        for url in self.objYTPL.video_urls:
+            if url in self.selecionados:
+                self.downloadAudio(url)
         conversor(self.path)
+
+    def setJanela(self):
+        layout = [[sg.Text(self.objYTPL.title)]]
+        for video in self.objYTPL.videos:
+            layout.append([sg.Checkbox(video.title, key=video.video_id, default=True)],)
+        layout.append([sg.Button('Voltar'), sg.Button('Ok')])
+        return sg.Window("Seleção de vídeos", layout=layout, finalize=True)
+
         
         
 def conversor(path):
@@ -57,7 +69,7 @@ def conversor(path):
 def tratamentolink(link):
     status = False
     if "https://www.youtube.com/" not in link:
-        sg.PopupOK("Invalid Path! Enter again.")
+        sg.PopupOK("Invalid Link! Enter again.")
     else:
         status = True
         return status

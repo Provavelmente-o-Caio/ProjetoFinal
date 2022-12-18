@@ -31,12 +31,12 @@ class PlaylistDownload(PlaylistVideo):
         
     def downloadAllVideos(self):
         for url in self.objYTPL:
-            YouTube(url).streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)
+            IndividualDownload(url, self.path).downloadVideo()
     
     
     def downloadAllTracks(self):
         for url in self.objYTPL:
-            YouTube(url).streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
+            IndividualDownload(url, self.path).downloadAudio()
         
         
 def conversor(path):
@@ -63,16 +63,3 @@ def tratamentopath(path):
         sg.PopupOK("Invalid Path! Enter again.")
     else:
         return status
-
-# ÁREA TESTES #
-
-link = "https://www.youtube.com/watch?v=GJ0mO8P37Eg&list=PL8rzbbiOVga3DXDBO0FdocjPp3r65sgKn&index=1"
-linkp = "https://www.youtube.com/playlist?list=PL8rzbbiOVga3DXDBO0FdocjPp3r65sgKn"
-path = "Documentos/ProjetoFinal/"
-
-#IndividualDownload(link,path).downloadVideo()
-#IndividualDownload(link,path).downloadAudio()
-#conversor(path)
-#PlaylistDownload(linkp,path).downloadAllVideos()
-#PlaylistDownload(linkp,path).downloadAllTracks()
-#conversor(path)

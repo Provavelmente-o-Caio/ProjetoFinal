@@ -18,8 +18,10 @@ class IndividualDownload(IndividualVideo):
         super().__init__(link)
         self.path = path
     
+    
     def downloadVideo(self):
         self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)    
+    
     
     def downloadAudio(self):
         self.objYT.streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
@@ -30,14 +32,17 @@ class PlaylistDownload(PlaylistVideo, IndividualDownload):
     def __init__(self, link, path):
         super().__init__(link)
         self.name = self.objYTPL.title
-        self.path = path+'/'+self.name
-
+        self.path = path + '/' + self.name
+        
+        
     def downloadAudio(self, url):
         YouTube(url).streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True) #removi o conversos para quando for chamar o download audio não chamar a função muitas vezes desnecessariamente
+        
         
     def downloadAllVideos(self):
         for url in self.objYTPL:
             IndividualDownload(url, self.path).downloadVideo()
+    
     
     def downloadAllTracks(self):
         for url in self.objYTPL:
@@ -54,18 +59,18 @@ def conversor(path):
                 new_file.write_audiofile(mp3_path)     #Renomeia o arquivo, setando o nome criado anteriormente
                 os.remove(mp4_path)                    #Remove o arquivo .MP4; desetivar linha permite salvar o audio e video do mesmo video ao mesmo tempo
 
+
 def tratamentolink(link):
-    status = False
-    if "https://www.youtube.com/" not in link:
-        sg.PopupOK("Invalid link! Enter again.")
+    try:
+        YouTube(link)
+    except:
+        sg.PopupNoTitlebar("Link inválido! Insira novamente!!")
     else:
-        status = True
-        return status
+        return True
     
     
 def tratamentopath(path):
     status = os.path.lexists(path)
     if status == False:
-        sg.PopupOK("Invalid Path! Enter again.")
-    else:
-        return status
+        sg.PopupNoTitlebar("Caminho inválido! Insira novamente!!")
+    return status

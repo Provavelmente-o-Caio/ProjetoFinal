@@ -26,7 +26,7 @@ while True:
     # TRATAMENTO DE VIDEO #
     if event == 'Download Video':
         if elink == True and epath == True:
-            if "playlist" in values[0]: 
+            if "playlist" in values[0]:
                 PlaylistDownload(values[0], values[1]).downloadAllVideos()
                 sg.PopupOK('Download completed successfully!!')
             else:
@@ -36,7 +36,7 @@ while True:
     
     # TRATAMENTO DE AUDIO #
     elif event == 'Download Audio':
-        if elink == True and epath == True:
+        if elink == True and epath == False:
             if "playlist" in values[0]: 
                 PlaylistDownload(values[0], values[1]).downloadAllTracks()
                 sg.PopupOK('Download completed successfully!!')

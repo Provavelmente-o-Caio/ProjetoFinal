@@ -26,11 +26,14 @@ class IndividualDownload(IndividualVideo):
         conversor(self.path)
 
 
-class PlaylistDownload(PlaylistVideo):
+class PlaylistDownload(PlaylistVideo, IndividualDownload):
     def __init__(self, link, path):
         super().__init__(link)
         self.name = self.objYTPL.title
         self.path = path+'/'+self.name
+
+    def downloadAudio(self):
+        self.objYT.streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
         
     def downloadAllVideos(self):
         for url in self.objYTPL:
@@ -38,7 +41,7 @@ class PlaylistDownload(PlaylistVideo):
     
     def downloadAllTracks(self):
         for url in self.objYTPL:
-            IndividualDownload.downloadAudio(url, self.path)
+            self.downloadAudio(url, self.path)
         
         
 def conversor(path):

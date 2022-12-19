@@ -71,7 +71,7 @@ def tratamentolink(link):
         try:
             YouTube(link)
         except:
-            sg.PopupOK("Invalid Path! Enter again.")
+            sg.PopupOK("Link inválido! Insira novamente!!")
         else:
             return True
     else:

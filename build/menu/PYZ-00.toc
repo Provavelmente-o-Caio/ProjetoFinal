@@ -804,14 +804,6 @@
    'C:\\Users\\Nicolas Constante '
    'G\\AppData\\Local\\Programs\\Python\\Python310\\lib\\multiprocessing\\__init__.py',
    'PYMODULE'),
-  ('stringprep',
-   'C:\\Users\\Nicolas Constante '
-   'G\\AppData\\Local\\Programs\\Python\\Python310\\lib\\stringprep.py',
-   'PYMODULE'),
-  ('tracemalloc',
-   'C:\\Users\\Nicolas Constante '
-   'G\\AppData\\Local\\Programs\\Python\\Python310\\lib\\tracemalloc.py',
-   'PYMODULE'),
   ('getpass',
    'C:\\Users\\Nicolas Constante '
    'G\\AppData\\Local\\Programs\\Python\\Python310\\lib\\getpass.py',
@@ -831,6 +823,14 @@
   ('http.cookiejar',
    'C:\\Users\\Nicolas Constante '
    'G\\AppData\\Local\\Programs\\Python\\Python310\\lib\\http\\cookiejar.py',
+   'PYMODULE'),
+  ('stringprep',
+   'C:\\Users\\Nicolas Constante '
+   'G\\AppData\\Local\\Programs\\Python\\Python310\\lib\\stringprep.py',
+   'PYMODULE'),
+  ('tracemalloc',
+   'C:\\Users\\Nicolas Constante '
+   'G\\AppData\\Local\\Programs\\Python\\Python310\\lib\\tracemalloc.py',
    'PYMODULE'),
   ('_py_abc',
    'C:\\Users\\Nicolas Constante '

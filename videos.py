@@ -19,7 +19,7 @@ class IndividualDownload(IndividualVideo):
         self.path = path
     
     def downloadVideo(self):
-        self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)    
+        self.objYT.streams.get_highest_resolution().download(self.path, filename_prefix="video_", skip_existing= True)
     
     def downloadAudio(self):
         self.objYT.streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True)
@@ -35,14 +35,26 @@ class PlaylistDownload(PlaylistVideo, IndividualDownload):
     def downloadAudio(self, url):
         YouTube(url).streams.filter(only_audio = True).first().download(self.path, filename_prefix="audio_", skip_existing= True) #removi o conversos para quando for chamar o download audio não chamar a função muitas vezes desnecessariamente
         
-    def downloadAllVideos(self):
-        for url in self.objYTPL:
-            IndividualDownload(url, self.path).downloadVideo()
+    def downloadAllVideos(self, selecionados):
+        self.selecionados = selecionados
+        for url in self.objYTPL.video_urls:
+            if url in self.selecionados:
+                IndividualDownload(url, self.path).downloadVideo()
     
-    def downloadAllTracks(self):
-        for url in self.objYTPL:
-            self.downloadAudio(url)
+    def downloadAllTracks(self, selecionados):
+        self.selecionados = selecionados
+        for url in self.objYTPL.video_urls:
+            if url in self.selecionados:
+                self.downloadAudio(url)
         conversor(self.path)
+
+    def setJanela(self):
+        layout = [[sg.Text(self.objYTPL.title)]]
+        for video in self.objYTPL.videos:
+            layout.append([sg.Checkbox(video.title, key=video.video_id, default=True)],)
+        layout.append([sg.Button('Voltar'), sg.Button('Ok')])
+        return sg.Window("Seleção de vídeos", layout=layout, finalize=True)
+
         
         
 def conversor(path):
@@ -55,13 +67,22 @@ def conversor(path):
                 os.remove(mp4_path)                    #Remove o arquivo .MP4; desetivar linha permite salvar o audio e video do mesmo video ao mesmo tempo
 
 def tratamentolink(link):
-    status = False
-    if "https://www.youtube.com/" not in link:
-        sg.PopupOK("Invalid Path! Enter again.")
+    if "playlist" not in link:
+        try:
+            YouTube(link)
+        except:
+            sg.PopupOK("Invalid Path! Enter again.")
+        else:
+            return True
     else:
-        status = True
-        return status
-    
+        p = Playlist(link)
+        for url in p.video_urls:
+            try:
+                YouTube(url)
+            except:
+                p.remove(url)
+        return p
+                
     
 def tratamentopath(path):
     status = os.path.lexists(path)
@@ -69,3 +90,9 @@ def tratamentopath(path):
         sg.PopupOK("Invalid Path! Enter again.")
     else:
         return status
+
+
+#link = "https://www.youtube.com/watch?v=GJ0mO8P37Eg&list=PL8rzbbiOVga3DXDBO0FdocjPp3r65sgKn&index=1"
+#linkp = "https://www.youtube.com/playlist?list=PL8rzbbiOVga3DXDBO0FdocjPp3r65sgKn"
+#teste = tratamentolink(linkp)
+#print(teste)

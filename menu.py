@@ -31,12 +31,15 @@ while True:
                 if "playlist" in values[0]:
                     link=values[0]
                     path=values[1]
+                    print(values[0], values[1])
                     janela2 = PlaylistDownload(values[0], values[1]).setJanela()
                     janela.hide()
                     video=True
                 else:
                     IndividualDownload(values[0], values[1]).downloadVideo()
                     sg.PopupOK('Download completed successfully!!')
+                    values[0]=''
+                    values[1]=''
     #---------------------#
         
     # TRATAMENTO DE AUDIO #
@@ -51,6 +54,8 @@ while True:
                 else:
                     IndividualDownload(values[0], values[1]).downloadAudio()
                     sg.PopupOK('Download completed successfully!!')
+                    values[0]=''
+                    values[1]=''
     #---------------------#
 
     # JANELA DE SELEÇÃO #
@@ -76,5 +81,6 @@ while True:
             janela2=None
             audio=False
             video=False
+            sg.PopupOK('Download completed successfully!!')
             janela.un_hide()
 janela.close()

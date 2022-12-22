@@ -82,5 +82,5 @@ while True:
                 sg.PopupAutoClose('Download completed successfully!!') #mostra na tela que o download foi um sucesso
                 janela.un_hide() #retorna/reabre a janela 1
     #--------------------#
-    values[0], values = '', '' #exclui os values para executar novamente
+    values[0], values[1] = '', '' #exclui os values para executar novamente
 janela.close() #finaliza/fecha o programa

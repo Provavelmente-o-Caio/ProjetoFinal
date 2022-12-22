@@ -94,5 +94,3 @@ def conversor(path): #converte os arquivos de mp4 para mp3, não constítui uma 
                 new_file = mp.AudioFileClip(mp4_path)  #Cria o arquivo de acordo com o tipo
                 new_file.write_audiofile(mp3_path)     #Renomeia o arquivo, setando o nome criado anteriormente
                 os.remove(mp4_path)                    #Remove o arquivo .MP4; desetivar linha permite salvar o audio e video do mesmo video ao mesmo tempo
-                
-                
